@@ -1,0 +1,16 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>푸드트럭 차량 튜닝 및 등록</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="openDetailPage(item)" icon-start>
+      {{ item.title }}
+    </button>
+  </ion-list>
+</ion-content>

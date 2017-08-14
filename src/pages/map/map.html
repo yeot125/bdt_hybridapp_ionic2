@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar color="nav-tab">
+    <ion-title>
+      Map
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <map #map>
+  </map>
+  <ion-fab right bottom>
+      <button ion-fab mini color="#58ACFA" (click)='setCurrentPosition()'><ion-icon name="locate"></ion-icon></button>
+  </ion-fab>
+</ion-content>
