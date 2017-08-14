@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MrResultProvider } from '../../../providers/mr-result/mr-result';
 import { Http } from '@angular/http';
 
-
-interface MyType{
-  key:string,
-  value:number,
-  url:string
-}
-
 @IonicPage()
 @Component({
   selector: 'page-more-menu-info-list',

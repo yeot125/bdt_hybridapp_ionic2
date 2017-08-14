@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DetailPage } from '../details/detail/detail';
 import { Detail2Page } from '../details/detail2/detail2';
 import { Detail3Page } from '../details/detail3/detail3';
@@ -17,8 +17,9 @@ import { MoreMenuInfoChartPage } from '../details/more-menu-info-chart/more-menu
 export class InfoPage {
   
 items = [];
+window:Window;
 
-  constructor(public nav: NavController) {
+  constructor(public nav: NavController, public iab: InAppBrowser) {
 
     this.items = [
       {
@@ -50,6 +51,7 @@ items = [];
         'title' : '통계 차트 보기'
       }
     ]
+        
   }
 
   openDetailPage(item) {
@@ -67,7 +69,11 @@ items = [];
         this.nav.push(Detail4Page, { item: item });
         break;
         case "5" :
-        window.open('http://www.moi.go.kr/frt/bbs/type001/commonSelectBoardList.do?bbsId=BBSMSTR_000000000267','_blank','closebuttoncation=Close');
+        let curYear= new Date().getFullYear().toString();
+        let curMonth= new Date().getMonth().toString();
+        let url= "https://korean.visitkorea.or.kr/kor/bz15/where/festival/festival.jsp?areaCode=31&year="+curYear+"&month="+curMonth+"&keyword=&type=&gotoPage=&listType=cdesc&cid=&out_service=&info_edit ";
+        let browser = this.iab.create(url, '_system', 'location=yes,closebuttoncaption=Done');
+        browser.show();
         break;
         case "6" :
         this.nav.push(MoreMenuInfoListPage, { item: item });

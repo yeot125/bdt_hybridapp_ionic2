@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MrResultProvider } from '../../../providers/mr-result/mr-result';
 import { Http } from '@angular/http';

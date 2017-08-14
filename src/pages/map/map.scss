@@ -10,4 +10,18 @@ page-map {
         height: 30px;
         line-height: 30px;
     }
+    #marker1{
+        width:17px;
+        height:20px;
+    }
+
+    #marker2{
+        width:20px;
+        height:20px;
+    }
+    ion-title{
+        text-align: center;
+        width:120% !important;
+        margin-left:-30px;
+    }
 }
