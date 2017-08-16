@@ -33,39 +33,13 @@ var ListPage = (function () {
         this.http = http;
         this.alert = alert;
         this.sanitizer = sanitizer;
-        this.testList = [
-            { key: "떡볶이", value: 16 },
-            { key: "부리또", value: 15 },
-            { key: "피자", value: 14 },
-            { key: "치킨", value: 13 },
-            { key: "꼬치", value: 12 },
-            { key: "훈제오리", value: 11 },
-            { key: "닭갈비", value: 10 },
-            { key: "햄버거", value: 9 },
-            { key: "스테이크", value: 8 },
-            { key: "쌀국수", value: 7 },
-            { key: "타코야끼", value: 6 },
-            { key: "오코노미야끼", value: 5 },
-            { key: "장어덮밥", value: 4 },
-            { key: "제육덮밥", value: 3 },
-            { key: "연어", value: 2 },
-            { key: "참치회", value: 1 },
-        ];
-        this.testImgURL = [];
+        this.imgList = [];
         this.splash = true;
         this.tab = document.querySelector('.tabbar');
         this.mrRes = mrResult.getMRJobResultWithURL().map(function (res) { return res.json(); }).subscribe(function (res) {
-            console.log(res);
-        });
-        this.http.get('assets/food_list/food_list.json').map(function (res) { return res.json(); })
-            .subscribe(function (res) {
-            for (var i = 0; i < _this.testList.length; i++) {
-                for (var j = 0; j < res.length; j++) {
-                    if (_this.testList[i].key == res[j].name) {
-                        _this.testImgURL[i] = (res[j].url);
-                        break;
-                    }
-                }
+            _this.mrRes = res;
+            for (var i = 0; i < 15; i++) {
+                _this.imgList[i] = res[i].url;
             }
         });
     }
@@ -79,8 +53,8 @@ var ListPage = (function () {
     };
     ListPage.prototype.clickImg = function (i) {
         var popUp = this.alert.create({
-            title: this.testList[i].key,
-            message: this.sanitizer.bypassSecurityTrustHtml("<p><span name=\"thumbs-up\" style=\"display:inline-block;font-family:Ionicons;\" class=\"icon icon-md ion-md-thumbs-up\"></span>" + this.testList[i].value + "</p><p><img src=\"" + this.testImgURL[i] + "\"/></p>"),
+            title: this.mrRes[i].key,
+            message: this.sanitizer.bypassSecurityTrustHtml("<p><span name=\"thumbs-up\" style=\"display:inline-block;font-family:Ionicons;\" class=\"icon icon-md ion-md-thumbs-up\"></span>" + this.mrRes[i].value + "</p><p><img src=\"" + this.imgList[i] + "\"/></p>"),
             buttons: ['OK']
         });
         popUp.present();
@@ -90,7 +64,7 @@ var ListPage = (function () {
 ListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-list',template:/*ion-inline-start:"/Users/psj/ionic2/bdt_project/src/pages/list/list.html"*/'<div id="custom-overlay" [style.display]="splash ? \'flex\':\'none\'">\n  <div class="flb">\n    <div class="Aligner-item Aligner-item--top"></div>\n    <img src="assets/splash_icon.png">\n    <div class="Aligner-item Aligner-item--bottom"></div>\n  </div>\n</div>\n\n<ion-header>\n  <ion-navbar color="nav-tab">\n    <ion-title>SNS 인기순위</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-8>\n        <img src="{{testImgURL[0]}}" id="no1" (click)="clickImg(0)"/>\n      </ion-col>\n      <ion-col>\n        <ion-row>\n          <ion-col col-12>\n            <img src="{{testImgURL[7]}}" (click)="clickImg(7)"/>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col col-12>\n           <img src="{{testImgURL[8]}}" (click)="clickImg(8)"/>\n          </ion-col>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n\n    \n    <ion-row>\n      <ion-col>\n        <img src="{{testImgURL[12]}}" (click)="clickImg(12)"/>\n      </ion-col>\n      <ion-col col-8>\n        <img src="{{testImgURL[1]}}" (click)="clickImg(1)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col>\n        <img src="{{testImgURL[2]}}" (click)="clickImg(2)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{testImgURL[3]}}" (click)="clickImg(3)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col>\n        <img src="{{testImgURL[9]}}" (click)="clickImg(9)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{testImgURL[10]}}" (click)="clickImg(10)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{testImgURL[11]}}" (click)="clickImg(11)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col>\n        <img src="{{testImgURL[4]}}" (click)="clickImg(4)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{testImgURL[5]}}" (click)="clickImg(5)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col col-6>\n        <img src="{{testImgURL[6]}}" (click)="clickImg(6)"/>\n      </ion-col>\n      <ion-col col-3>\n        <img src="{{testImgURL[13]}}" (click)="clickImg(13)"/>\n      </ion-col>\n      <ion-col col-3>\n        <img src="{{testImgURL[14]}}" (click)="clickImg(14)"/>\n      </ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/psj/ionic2/bdt_project/src/pages/list/list.html"*/,
+        selector: 'page-list',template:/*ion-inline-start:"/Users/psj/ionic2/bdt_project/src/pages/list/list.html"*/'<div id="custom-overlay" [style.display]="splash ? \'flex\':\'none\'">\n  <div class="flb">\n    <div class="Aligner-item Aligner-item--top"></div>\n    <img src="assets/splash_icon.png">\n    <div class="Aligner-item Aligner-item--bottom"></div>\n  </div>\n</div>\n\n<ion-header>\n  <ion-navbar color="nav-tab">\n    <ion-title>SNS 인기순위</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-8>\n        <img src="{{imgList[0]}}" id="no1" (click)="clickImg(0)"/>\n      </ion-col>\n      <ion-col>\n        <ion-row>\n          <ion-col col-12>\n            <img src="{{imgList[7]}}" (click)="clickImg(7)"/>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col col-12>\n           <img src="{{imgList[8]}}" (click)="clickImg(8)"/>\n          </ion-col>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n\n    \n    <ion-row>\n      <ion-col>\n        <img src="{{imgList[12]}}" (click)="clickImg(12)"/>\n      </ion-col>\n      <ion-col col-8>\n        <img src="{{imgList[1]}}" (click)="clickImg(1)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col>\n        <img src="{{imgList[2]}}" (click)="clickImg(2)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{imgList[3]}}" (click)="clickImg(3)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col>\n        <img src="{{imgList[9]}}" (click)="clickImg(9)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{imgList[10]}}" (click)="clickImg(10)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{imgList[11]}}" (click)="clickImg(11)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col>\n        <img src="{{imgList[4]}}" (click)="clickImg(4)"/>\n      </ion-col>\n      <ion-col>\n        <img src="{{imgList[5]}}" (click)="clickImg(5)"/>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col col-6>\n        <img src="{{imgList[6]}}" (click)="clickImg(6)"/>\n      </ion-col>\n      <ion-col col-3>\n        <img src="{{imgList[13]}}" (click)="clickImg(13)"/>\n      </ion-col>\n      <ion-col col-3>\n        <img src="{{imgList[14]}}" (click)="clickImg(14)"/>\n      </ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/psj/ionic2/bdt_project/src/pages/list/list.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_2__providers_mr_result_mr_result__["a" /* MrResultProvider */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -565,34 +539,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var MoreMenuInfoListPage = (function () {
     function MoreMenuInfoListPage(navCtrl, navParams, http, mrResult) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.mrResult = mrResult;
-        this.testList = [
-            { key: "떡볶이", value: 16 },
-            { key: "부리또", value: 15 },
-            { key: "피자", value: 14 },
-            { key: "치킨", value: 13 },
-            { key: "꼬치", value: 12 },
-            { key: "훈제오리", value: 11 },
-            { key: "닭갈비", value: 10 },
-            { key: "햄버거", value: 9 },
-            { key: "스테이크", value: 8 },
-            { key: "쌀국수", value: 7 },
-            { key: "타코야끼", value: 6 },
-            { key: "오코노미야끼", value: 5 },
-            { key: "장어덮밥", value: 4 },
-            { key: "제육덮밥", value: 3 },
-            { key: "연어", value: 2 },
-            { key: "참치회", value: 1 },
-        ];
-        this.mrRes = mrResult.getMRJobResultWithURL();
-        this.searched = this.testList;
+        mrResult.getMRJobResultWithURL().map(function (res) { return res.json(); }).subscribe(function (res) {
+            _this.mrRes = res;
+            _this.searched = res;
+        });
     }
     MoreMenuInfoListPage.prototype.keyPressed = function (e) {
         var _this = this;
-        this.searched = this.testList.filter(function (item) { return item.key.toLowerCase().includes(_this.filterKeyword.toLowerCase()); });
+        this.searched = this.mrRes.filter(function (item) { return item.key.toLowerCase().includes(_this.filterKeyword.toLowerCase()); });
     };
     return MoreMenuInfoListPage;
 }());
@@ -633,64 +592,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var MoreMenuInfoChartPage = (function () {
     function MoreMenuInfoChartPage(navCtrl, navParams, http, mrResult) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.mrResult = mrResult;
-        this.testList = [
-            { key: "떡볶이", value: 16 },
-            { key: "부리또", value: 15 },
-            { key: "피자", value: 14 },
-            { key: "치킨", value: 13 },
-            { key: "꼬치", value: 12 },
-            { key: "훈제오리", value: 11 },
-            { key: "닭갈비", value: 10 },
-            { key: "햄버거", value: 9 },
-            { key: "스테이크", value: 8 },
-            { key: "쌀국수", value: 7 },
-            { key: "타코야끼", value: 6 },
-            { key: "오코노미야끼", value: 5 },
-            { key: "장어덮밥", value: 4 },
-            { key: "제육덮밥", value: 3 },
-            { key: "연어", value: 2 },
-            { key: "참치회", value: 1 },
-        ];
-        this.mrRes = mrResult.getMRJobResult();
-        var str = JSON.stringify(this.testList);
-        str = str.split("key").join("name");
-        str = str.split("value").join("y");
-        var converted = JSON.parse(str);
-        this.chartOptions = {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie',
-                width: 300,
-                height: 500,
-            },
-            title: {
-                text: '음식 인기 통계'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                    name: '좋아요',
-                    colorByPoint: true,
-                    data: converted
-                }]
-        };
+        this.mrRes = [];
+        mrResult.getMRJobResult().map(function (res) { return res.json(); }).subscribe(function (res) {
+            for (var i = 0; i < 20; i++) {
+                _this.mrRes[i] = res[i];
+            }
+            _this.chartOptions = {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    width: 300,
+                    height: 500,
+                },
+                title: {
+                    text: '음식 인기 통계'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                        name: '좋아요',
+                        colorByPoint: true,
+                        data: _this.mrRes
+                    }]
+            };
+        });
     }
     return MoreMenuInfoChartPage;
 }());
@@ -740,9 +683,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var InfoPage = (function () {
-    function InfoPage(nav, iab) {
+    function InfoPage(nav, iab, platform) {
         this.nav = nav;
         this.iab = iab;
+        this.platform = platform;
         this.items = [];
         this.items = [
             {
@@ -793,8 +737,14 @@ var InfoPage = (function () {
                 var curYear = new Date().getFullYear().toString();
                 var curMonth = new Date().getMonth().toString();
                 var url = "https://korean.visitkorea.or.kr/kor/bz15/where/festival/festival.jsp?areaCode=31&year=" + curYear + "&month=" + curMonth + "&keyword=&type=&gotoPage=&listType=cdesc&cid=&out_service=&info_edit ";
-                var browser = this.iab.create(url, '_system', 'location=yes,closebuttoncaption=Done');
-                browser.show();
+                if (this.platform.is('android')) {
+                    var browser = this.iab.create(url, '_blank', 'location=yes');
+                    browser.show();
+                }
+                else {
+                    var browser = this.iab.create(url, '_system', 'location=yes,closebuttoncaption=Done');
+                    browser.show();
+                }
                 break;
             case "6":
                 this.nav.push(__WEBPACK_IMPORTED_MODULE_7__details_more_menu_info_list_more_menu_info_list__["a" /* MoreMenuInfoListPage */], { item: item });
@@ -811,7 +761,7 @@ InfoPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-info',template:/*ion-inline-start:"/Users/psj/ionic2/bdt_project/src/pages/info/info.html"*/'<ion-header>\n\n  <ion-navbar color="nav-tab">\n    <ion-title>푸드트럭의 모든 것</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="openDetailPage(item)" icon-start>\n      {{ item.title }}\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/psj/ionic2/bdt_project/src/pages/info/info.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_in_app_browser__["a" /* InAppBrowser */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_in_app_browser__["a" /* InAppBrowser */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */]])
 ], InfoPage);
 
 //# sourceMappingURL=info.js.map

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, Platform } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DetailPage } from '../details/detail/detail';
 import { Detail2Page } from '../details/detail2/detail2';
@@ -19,8 +19,7 @@ export class InfoPage {
 items = [];
 window:Window;
 
-  constructor(public nav: NavController, public iab: InAppBrowser) {
-
+  constructor(public nav: NavController, public iab: InAppBrowser, public platform: Platform) {
     this.items = [
       {
         'num' : '1',
@@ -72,8 +71,17 @@ window:Window;
         let curYear= new Date().getFullYear().toString();
         let curMonth= new Date().getMonth().toString();
         let url= "https://korean.visitkorea.or.kr/kor/bz15/where/festival/festival.jsp?areaCode=31&year="+curYear+"&month="+curMonth+"&keyword=&type=&gotoPage=&listType=cdesc&cid=&out_service=&info_edit ";
-        let browser = this.iab.create(url, '_system', 'location=yes,closebuttoncaption=Done');
-        browser.show();
+        if(this.platform.is('android')){
+          let browser = this.iab.create(url, '_blank', 'location=yes');
+          browser.show();
+        }else{
+          let browser = this.iab.create(url, '_system', 'location=yes,closebuttoncaption=Done');
+          browser.show();
+        }
+       
+         
+          
+        
         break;
         case "6" :
         this.nav.push(MoreMenuInfoListPage, { item: item });
@@ -81,6 +89,6 @@ window:Window;
         case "7" :
         this.nav.push(MoreMenuInfoChartPage, { item: item });
         break;
-       }
+      }
   }
 }
